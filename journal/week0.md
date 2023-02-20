@@ -12,10 +12,25 @@
 #### Step 3: Create AWS account with MFA
 
 - I created an  AWS user account (different from the root user) with full administrative permission and MFA setup
-- A programatic access was created to use for access via the command line of my local machine and VS code
+- A programatic access was created to use for access via the command line of my local machine and gitpod and VS code
+
+PS: I had some issues using gitpod with a guest ssh passphase cause it kept timing out. I was able to resolve this by creating SSH key with personalized passpharse.This SHA256 key was added to the Gitpod SSH keys to get access to the Vs-code
+
+```
+ssh-keygen -t ed25519  
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/Users/cynthia/.ssh/id_ed25519): gitpodaccess
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in gitpodaccess
+Your public key has been saved in gitpodaccess.pub
+The key fingerprint is:
+SHA256:************************************
+```
 
 
-#### Step 4: Install  AWS CLI V2 on my local Machine and on setup on my gitpod using vs code and auto installation on the gitpod.yml file
+
+#### Step 4: Install  AWS CLI V2 on my local Machine and also setup on my gitpod using Vs-code to on the gitpod.yml file
 
 I was able to install aws CLi v2 on my local machine using the below command [AWS documentations for CLI installation](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 ```
