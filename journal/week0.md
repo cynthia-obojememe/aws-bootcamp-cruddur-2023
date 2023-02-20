@@ -187,7 +187,7 @@ aws sns subscribe \
   
 ```
 
-
+- Run the below cli command to setup the cloudwatch alarm
 
 ```
 aws  cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm-config.json
