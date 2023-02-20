@@ -192,3 +192,6 @@ aws sns subscribe \
 ```
 aws  cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm-config.json
 ```
+![proof of the billing alarm configuration](assest/billing%20alarm.png)
+
+#### Create Eventbridge Trigger to Health dashboard link to SNS to send notification of service issues
