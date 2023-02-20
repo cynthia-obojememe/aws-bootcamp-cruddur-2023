@@ -17,15 +17,16 @@ https://lucid.app/lucidchart/6b28c44d-7cc7-45b4-ae5f-ffb1d43c0dae/edit?viewport_
 #### Step 4, Install  AWS CLI V2 on my local Machine and on setup and auto installation on the gitpod.yml file
 
 I was able to install aws CLi v2 on my local machine using the below command.
-
+```
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
 sudo ./aws/install
+```
 
 It was successful and i got the below output.
 
 I was setup the aws cli installation to start 
-
+```
 Tasks:
   - name: aws-cli
     env:
@@ -39,6 +40,6 @@ Tasks:
 vscode:
   extensions:
     - 42Crunch.vscode-openapi
-
+```
 See proof of 
 ![Screenshot 2023-02-19 at 7 57 45 AM](https://user-images.githubusercontent.com/101113092/219933781-ed23ac58-871f-4c38-9955-9672e9ff4539.jpg)
