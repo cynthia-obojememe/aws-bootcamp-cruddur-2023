@@ -2,9 +2,9 @@
 
 ## Getting started with creating a Lucidchart with a logical framework of the project.
 
-#### Step 1, Creating a conceptual diagram with the applications needed for the Cruddur application!
+#### Step 1, Creating a conceptual diagram with the applications needed for the Cruddur application
 
-!![Screenshot 2023-02-20 at 12 37 59 PM](https://user-images.githubusercontent.com/101113092/220097573-04d7081e-95df-4100-85ba-cd9a9f89afe0.jpg)
+![Conceptual Diagram](cruddur%20asset/week-0/conceptual%20Diagram.png)
     
 https://lucid.app/lucidchart/6b28c44d-7cc7-45b4-ae5f-ffb1d43c0dae/edit?viewport_loc=-344%2C-1666%2C3775%2C2020%2C0_0&invitationId=inv_fa33fb3a-54ca-42a3-9314-984cf29a5cc8
 
@@ -42,4 +42,4 @@ vscode:
     - 42Crunch.vscode-openapi
 ```
 See proof of 
-![Screenshot 2023-02-19 at 7 57 45 AM](https://user-images.githubusercontent.com/101113092/219933781-ed23ac58-871f-4c38-9955-9672e9ff4539.jpg)
+![proof of installation](cruddur%20asset/week-0/gitpod.yml%20aws%20installation.png)
