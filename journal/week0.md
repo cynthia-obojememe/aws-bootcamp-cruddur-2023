@@ -2,11 +2,12 @@
 
 ## Getting started with creating a Lucidchart with a logical framework of the project.
 
-#### Step 1, Creating a conceptual diagram with the applications needed for the Cruddur application
+#### Step 1: Creating a conceptual diagram with the applications needed for the Cruddur application
 
-![Conceptual Diagram](cruddur-assests/week-0/conceptual%20Diagram.png)
+![Conceptual Diagram](assest/conceptual%20Diagram.png)
     
-https://lucid.app/lucidchart/6b28c44d-7cc7-45b4-ae5f-ffb1d43c0dae/edit?viewport_loc=-344%2C-1666%2C3775%2C2020%2C0_0&invitationId=inv_fa33fb3a-54ca-42a3-9314-984cf29a5cc8
+### [Link to the Lucidchart](https://lucid.app/lucidchart/6b28c44d-7cc7-45b4-ae5f-ffb1d43c0dae/edit?viewport_loc=-344%2C-1666%2C3775%2C2020%2C0_0&invitationId=inv_fa33fb3a-54ca-42a3-9314-984cf29a5cc8)
+
 
 #### Step 3: Create AWS account with MFA
 
@@ -21,6 +22,7 @@ I was able to install aws CLi v2 on my local machine using the below command [AW
 curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
 sudo installer -pkg AWSCLIV2.pkg -target /
 ```
+[see proof of image]
 It was successful and i got the below output.
 
 
@@ -43,4 +45,45 @@ vscode:
     - 42Crunch.vscode-openapi
 ```
 See proof of 
-![proof of installation](cruddur-assests/week-0/Gitpod.yml%20aws%20cli%20installation.jpg)
+![proof of installation](assest/gitpod.yml%20aws%20installation.png)
+
+#### Step 5: Configure Budget using the CLI and Json script
+
+- The billing notification was setup with the below json script added to a new file title 
+"budget.json
+
+
+```
+"BudgetLimit": {
+        "Amount": "70",
+        "Unit": "USD"
+    },
+    "BudgetName": "Example Tag Budget",
+    "BudgetType": "COST",
+    "CostFilters": {
+        "TagKeyValue": [
+            "user:Key$value1",
+            "user:Key$value2"
+        ]
+    },
+    "CostTypes": {
+        "IncludeCredit": true,
+        "IncludeDiscount": true,
+        "IncludeOtherSubscription": true,
+        "IncludeRecurring": true,
+        "IncludeRefund": true,
+        "IncludeSubscription": true,
+        "IncludeSupport": true,
+        "IncludeTax": true,
+        "IncludeUpfront": true,
+        "UseBlended": false
+    },
+    "TimePeriod": {
+        "Start": 1477958399,
+        "End": 3706473600
+    },
+    "TimeUnit": "MONTHLY"
+}
+```
+
+This ran successfull with output below. **![Screenshot form the aws account](assest/Billing%20threshold.png)**
