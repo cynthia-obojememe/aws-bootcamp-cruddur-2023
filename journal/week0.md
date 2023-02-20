@@ -102,12 +102,93 @@ See proof of
 }
 ```
 
+- i created an budget notifications using the json script i got from the [AWS documentation on budget notification example](https://docs.aws.amazon.com/cli/latest/reference/budgets/create-budget.html#examples)
+```
+[
+    {
+        "Notification": {
+            "ComparisonOperator": "GREATER_THAN",
+            "NotificationType": "ACTUAL",
+            "Threshold": 80,
+            "ThresholdType": "PERCENTAGE"
+        },
+        "Subscribers": [
+            {
+                "Address": "cynthia************@**.com",
+                "SubscriptionType": "EMAIL"
+            }
+        ]
+    }
+]
+```
+
 I ran the command on the aws cli using this command to setup the budget
 
 ```
 aws budgets create-budget \
-    --account-id 111122223333 \
-    --budget file://budget.json \
-    --notifications-with-subscribers file://notifications-with-subscribers.json
-``
+    --account-id=$AWS_ACCOUNT_ID \
+    --budget file://aws/json/budget.json \
+    --notifications-with-subscribers file://aws/json/budget-notification-with-subscribers.json
+```
 This ran successfull with output below. **![Screenshot form the aws account](assest/Billing%20threshold.png)**
+
+#### Step 6: Create Billing Alarm using cloudwatch and SNS Topic
+- I created an sns topic using the default region setup my aws  (us-west-2)
+
+```
+aws sns create-topic --name billing-alarm
+```
+
+- i applied the below command to setup a billing alarm notification
+```
+aws sns subscribe \
+    --topic-arn "arn:aws:sns:us-west-2:051107296320:billing-alarm" \
+    --protocol email \
+    --notification-endpoint cynthia***************
+```
+
+- create the Cloudwatch alarm using the json script from Exampro
+
+```
+"AlarmName": "DailyEstimatedCharges",
+    "AlarmDescription": "This alarm would be triggered if the daily estimated charges exceeds 1$",
+    "ActionsEnabled": true,
+    "AlarmActions": [
+        "arn:aws:sns:us-west-2:051107296320:billing-alarm"
+    ],
+    "EvaluationPeriods": 1,
+    "DatapointsToAlarm": 1,
+    "Threshold": 1,
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "TreatMissingData": "breaching",
+    "Metrics": [{
+        "Id": "m1",
+        "MetricStat": {
+            "Metric": {
+                "Namespace": "AWS/Billing",
+                "MetricName": "EstimatedCharges",
+                "Dimensions": [{
+                    "Name": "Currency",
+                    "Value": "USD"
+                }]
+            },
+            "Period": 86400,
+            "Stat": "Maximum"
+        },
+        "ReturnData": false
+    },
+    {
+        "Id": "e1",
+        "Expression": "IF(RATE(m1)>0,RATE(m1)*86400,0)",
+        "Label": "DailyEstimatedCharges",
+        "ReturnData": true
+    }]
+  }
+  
+```
+
+
+
+```
+aws  cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm-config.json
+```
