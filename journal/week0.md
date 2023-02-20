@@ -60,7 +60,7 @@ vscode:
     - 42Crunch.vscode-openapi
 ```
 See proof of 
-![proof of installation](a
+![proof of installation](assest/gitpod.yml%20aws%20installation.png)
 
 #### Step 5: Configure Budget using the CLI and Json script
 
