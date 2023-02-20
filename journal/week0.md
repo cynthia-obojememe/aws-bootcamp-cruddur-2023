@@ -4,7 +4,7 @@
 
 #### Step 1, Creating a conceptual diagram with the applications needed for the Cruddur application
 
-![Conceptual Diagram](cruddur%20asset/week-0/conceptual%20Diagram.png)
+![Conceptual Diagram](cruddur-assests/week-0/conceptual%20Diagram.png)
     
 https://lucid.app/lucidchart/6b28c44d-7cc7-45b4-ae5f-ffb1d43c0dae/edit?viewport_loc=-344%2C-1666%2C3775%2C2020%2C0_0&invitationId=inv_fa33fb3a-54ca-42a3-9314-984cf29a5cc8
 
@@ -42,4 +42,4 @@ vscode:
     - 42Crunch.vscode-openapi
 ```
 See proof of 
-![proof of installation](cruddur%20asset/week-0/gitpod.yml%20aws%20installation.png)
+![proof of installation](cruddur-assests/week-0/gitpod.yml%20aws%20installation.png)
