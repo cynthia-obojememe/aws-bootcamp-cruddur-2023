@@ -1,6 +1,6 @@
 # Week 0 — Billing and Architecture
 
-### Getting started with creating a Lucidchart with a logical framework of the project.
+## Getting started with creating a Lucidchart with a logical framework of the project.
 
 #### Step 1, Creating a conceptual diagram with the applications needed for the Cruddur application!
 
@@ -14,7 +14,8 @@ https://lucid.app/lucidchart/6b28c44d-7cc7-45b4-ae5f-ffb1d43c0dae/edit?viewport_
 - A programatic access was created to use for access via the command line of my local machine or VS code
 
 
-### Step 4, Install  AWS CLI V2 on my local Machine and on setup and auto installation on the gitpod.yml file
+#### Step 4, Install  AWS CLI V2 on my local Machine and on setup and auto installation on the gitpod.yml file
+
 I was able to install aws CLi v2 on my local machine using the below command.
 
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
