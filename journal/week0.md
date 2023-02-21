@@ -195,3 +195,15 @@ aws  cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm-config.j
 ![proof of the billing alarm configuration](assest/billing%20alarm.png)
 
 #### Create Eventbridge Trigger to Health dashboard link to SNS to send notification of service issues
+- I setup a event rule for changes in aws service health, I have to first setup an SNS topic using the below command on the cli
+```
+aws sns create-topic --name service-health
+aws sns subscribe --topic-arn arn:aws:sns:us-east-1:051107296320:service-health  --protocol email --notification-endpoint  cynthialearning3@gmail.com
+
+```
+This was output of the sns topic after confirmation
+
+![SNS TOP](assest/sns%20.png)
+
+
+- ![The event rule bridge output](assest/event%20rule.png)
