@@ -3,14 +3,16 @@
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
-		"ghcr.io/devcontainers/features/aws-cli:1": {
+		"ghcr.io/devcontainers/features/aws-cli:2": {
 	
 		}
 	},
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"ms-azuretools.vscode-docker"
+				"ms-azuretools.vscode-docker",
+				"xabikos.JavaScriptSnippets",
+				"amazonwebservices.aws-toolkit-vscode"
 			]
 		}
 	}
