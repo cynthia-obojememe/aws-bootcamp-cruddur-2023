@@ -139,7 +139,33 @@ networks:
 
 # Homework Challanges
 
-1. Run the Dockerfile command as an external script.
+### 1. Run the Dockerfile command as an external script.
+
+- I cd into backend-flask folder, i created an external script for the CMD "flask.sh" in backend-flask folder
+
+Run on terminal `nano flask.sh`
+add the below script to the nano file
+```
+#!bin/sh
+python3 -m flask run --host=0.0.0.0 --port=4567
+```
+- I added the flask script to the backend-flask Dockerfile CMD 
+`CMD ["./flask-python.sh "]`
+- Create a docker image from the backend-flask dockerfile
+` docker build -t backend-flask:V2 ./backend-flask`
+- Run container `docker run -it -d -p 4567:4567 -it -e FRONTEND_URL='*' -e BACKEND_URL='*' backend-flask:V2` 
+
+I had some error when trying to run the CMD script
+
+![]()
+
+[Ref](https://stackoverflow.com/questions/44687685/getting-permission-denied-in-docker-run)
+
+I was able to resolve this by changing the permission of the sh. script  this code on the dockerfile
+`RUN chmod +x flask-python.sh`
+
+
+
 
 
 3. Push and tag a image to DockerHub (they have a free tier).
