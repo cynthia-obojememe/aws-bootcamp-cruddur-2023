@@ -137,12 +137,14 @@ networks:
 
 ```
 
-#Homework Challanges
+# Homework Challanges
 
 1. Run the Dockerfile command as an external script.
-2. Push and tag a image to DockerHub (they have a free tier).
-3. Use multi-stage building for a Dockerfile build.
-4. Implement a healthcheck in the V3 Docker compose file.
-5. Research best practices of Dockerfiles and attempt to implement it in your Dockerfile.
-6. Learn how to install Docker on your local machine and get the same containers running outside of Gitpod / Codespaces.
-7. Launch an EC2 instance that has docker installed, and pull a container to demonstrate you can run your own docker processes.
+
+
+3. Push and tag a image to DockerHub (they have a free tier).
+4. Use multi-stage building for a Dockerfile build.
+5. Implement a healthcheck in the V3 Docker compose file.
+6. Research best practices of Dockerfiles and attempt to implement it in your Dockerfile.
+7. Learn how to install Docker on your local machine and get the same containers running outside of Gitpod / Codespaces.
+8. Launch an EC2 instance that has docker installed, and pull a container to demonstrate you can run your own docker processes.
