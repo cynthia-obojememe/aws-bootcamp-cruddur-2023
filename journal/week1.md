@@ -154,10 +154,6 @@ I had a permission error when trying to run the CMD script
 I was able to resolve this by changing the permission of the sh. script this code on the dockerfile
 `RUN chmod +x flask-python.sh`
 
-[refrence from youtube](https://www.youtube.com/watch?v=2_yOif1JlW0)
-
-[Refrenence from stackoverflow](https://stackoverflow.com/questions/44687685/getting-permission-denied-in-docker-run)
-
 ##### ![Output ](assest/week-1/Output.png)
 
 ### 2. Push and tag a image to DockerHub (they have a free tier).
@@ -179,11 +175,11 @@ docker push k12cambel/backend-flask:V2
 i was able to setup a healthcheck on the docker-compose yml file with the code below.
 
 ```
-healthcheck:
+[healthcheck:
       test: ["CMD-SHELL", "curl -f https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}/api/activities/home "]
       interval: 5s
       timeout: 2s
-      retries: 3
+      retries: 3](https://${CODESPACE_NAME}-3000.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}")
 ```
 [Output]()
 6. Research best practices of Dockerfiles and attempt to implement it in your Dockerfile.
@@ -197,3 +193,9 @@ To install Docker and Docker deamon on local machine (Mac), I had to download an
 ![](assest/week-1/docker%20extension.png)
 
 9. Launch an EC2 instance that has docker installed, and pull a container to demonstrate you can run your own docker processes.
+
+REFERENCE 
+1. youtube: https://www.youtube.com/watch?v=2_yOif1JlW0
+2. Github:  https://github.com/coreos/bugs/issues/1848
+3. Stackoverflow: https://stackoverflow.com/questions/44687685/getting-permission-denied-in-docker-run
+4.
