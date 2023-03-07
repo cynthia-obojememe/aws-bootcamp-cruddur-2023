@@ -1,7 +1,12 @@
 # Week 1 — App Containerization
 
-# Docker and Cruddur app Containerization
+## Docker and Cruddur app Containerization
 
+- Step 1, install Docker extension on Vscode from Gitpod/ Codespaces CDE.
+
+
+- Step 2, Open a vscode from your prefrreed CDE and install the docker extension.
+![](assest/week-1/docker%20extension.png)
 
 - P.S: Each line of code can be run on your local machine from the terminal to execute the code without creating a dockerfile with the instructions 
 ```
@@ -14,7 +19,7 @@ cd ..
 - confirm that the assigned port= 4567 is open and lunch the browers. Append `/api/activities/home` to see the json file
 
 
-### Create a Dockerfile for the Backend-flask
+### _Create a Dockerfile for the Backend-flask_
 
 - Step 3, Containerized the backend-flast application file by right clicking the backend-flask folder and create a new file title Dockerfile.
 - Each line of code in the dockerfile provides instruction that is to run inside of the container from the backend-flask folder
@@ -134,10 +139,10 @@ networks:
 # Homework Challanges
 
 ### 1. Run the Dockerfile command as an external script.
-
+---
 - I cd into backend-flask folder, i created an external script for the CMD "flask.sh" in backend-flask folder
 
-Run on terminal `nano flask.sh`
+Run on terminal `nano flask-python.sh`
 add the below script to the nano file
 ```
 #!bin/sh
@@ -155,7 +160,7 @@ I was able to resolve this by changing the permission of the sh. script this cod
 `RUN chmod +x flask-python.sh`
 
 ##### ![Output ](assest/week-1/Output.png)
-
+---
 ### 2. Push and tag a image to DockerHub (they have a free tier).
 first i had to login to my dockerhub account ```docker login```
 
@@ -167,32 +172,46 @@ docker tag  backend-flask:new k12cambel/backend-flask:V2
 ```
 docker push k12cambel/backend-flask:V2
 ```
+![Dockhub](assest/week-1/Screenshot%202023-03-07%20at%209.31.46%20PM.png)
+
+---
 
 ### 3. Use multi-stage building for a Dockerfile build.
 
 
-### 5. Implement a healthcheck in the V3 Docker compose file.
+---
+
+
+### 4. Implement a healthcheck in the V3 Docker compose file.
 i was able to setup a healthcheck on the docker-compose yml file with the code below.
 
+![Healthcheck code added to the docker-compose yaml file](assest/week-1/Screenshot%202023-03-07%20at%209.24.18%20PM.png)
+
 ```
-[healthcheck:
-      test: ["CMD-SHELL", "curl -f https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}/api/activities/home "]
-      interval: 5s
-      timeout: 2s
-      retries: 3](https://${CODESPACE_NAME}-3000.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}")
+healthcheck:
+      test: ["CMD", "curl", "-f", "https://${CODESPACE_NAME}-4567.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}/api/activities/home"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 ```
-[Output]()
-6. Research best practices of Dockerfiles and attempt to implement it in your Dockerfile.
-### 7. Learn how to install Docker on your local machine and get the same containers running outside of Gitpod / Codespaces.
+![Output](assest/week-1/Screenshot%202023-03-07%20at%209.14.49%20PM.png)
+
+---
 
 
-- Step 1, Install Docker on your local machine or install Docker extension on Vscode from Gitpod/ Codespaces CDE.
-To install Docker and Docker deamon on local machine (Mac), I had to download and install docker.dmg application from the  [`www.docker.com url`](https://docs.docker.com/desktop/install/mac-install/)
+### 5. Research best practices of Dockerfiles and attempt to implement it in your Dockerfile.
 
-- Step 2, Open a vscode from your prefrreed CDE and install the docker extension.
-![](assest/week-1/docker%20extension.png)
+---
 
-9. Launch an EC2 instance that has docker installed, and pull a container to demonstrate you can run your own docker processes.
+### 6. Learn how to install Docker on your local machine and get the same containers running outside of Gitpod / Codespaces.
+**I Install Docker on MacOS** , To install Docker desktop and Docker deamon on local machine (Mac), I had to download and install docker.dmg application from the  [`www.docker.com url`](https://docs.docker.com/desktop/install/mac-install/)
+![docker desktop](assest/week-1/Screenshot%202023-03-07%20at%209.56.15%20PM.png)
+
+- I cloned my git reposi
+
+
+
+### 7. Launch an EC2 instance that has docker installed, and pull a container to demonstrate you can run your own docker processes.
 
 REFERENCE 
 1. youtube: https://www.youtube.com/watch?v=2_yOif1JlW0
