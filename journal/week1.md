@@ -152,19 +152,19 @@ python3 -m flask run --host=0.0.0.0 --port=4567
 - I added the flask script to the backend-flask Dockerfile CMD 
 `CMD ["./flask-python.sh "]`
 - Create a docker image from the backend-flask dockerfile
-` docker build -t backend-flask:V2 ./backend-flask`
-- Run container `docker run -it -d -p 4567:4567 -it -e FRONTEND_URL='*' -e BACKEND_URL='*' backend-flask:V2` 
+` docker build -t backend-flask:new ./backend-flask`
+- Run container `docker run -it -d -p 4567:4567 -e BACKEND_URL='*' backend-flask:new` 
 
 I had some error when trying to run the CMD script
-
 ![]()
 
-[Ref](https://stackoverflow.com/questions/44687685/getting-permission-denied-in-docker-run)
 
-I was able to resolve this by changing the permission of the sh. script  this code on the dockerfile
+I was able to resolve this by changing the permission of the sh. script this code on the dockerfile
 `RUN chmod +x flask-python.sh`
 
+[refrence from youtube](https://www.youtube.com/watch?v=2_yOif1JlW0)
 
+[Refrenence from stackoverflow](https://stackoverflow.com/questions/44687685/getting-permission-denied-in-docker-run)
 
 
 
