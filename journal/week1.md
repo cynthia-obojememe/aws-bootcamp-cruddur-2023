@@ -3,12 +3,6 @@
 # Docker and Cruddur app Containerization
 
 
-- Step 1, Install Docker on your local machine or install Docker extension on Vscode from Gitpod/ Codespaces CDE.
-To install Docker and Docker deamon on local machine (Mac), I had to download and install docker.dmg application from the  [`www.docker.com url`](https://docs.docker.com/desktop/install/mac-install/)
-
-- Step 2, Open a vscode from your prefrreed CDE and install the docker extension.
-![](assest/week-1/docker%20extension.png)
-
 - P.S: Each line of code can be run on your local machine from the terminal to execute the code without creating a dockerfile with the instructions 
 ```
 cd backend-flask
@@ -181,7 +175,25 @@ docker push k12cambel/backend-flask:V2
 ### 3. Use multi-stage building for a Dockerfile build.
 
 
-5. Implement a healthcheck in the V3 Docker compose file.
+### 5. Implement a healthcheck in the V3 Docker compose file.
+i was able to setup a healthcheck on the docker-compose yml file with the code below.
+
+```
+healthcheck:
+      test: ["CMD-SHELL", "curl -f https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}/api/activities/home "]
+      interval: 5s
+      timeout: 2s
+      retries: 3
+```
+[Output]()
 6. Research best practices of Dockerfiles and attempt to implement it in your Dockerfile.
-7. Learn how to install Docker on your local machine and get the same containers running outside of Gitpod / Codespaces.
-8. Launch an EC2 instance that has docker installed, and pull a container to demonstrate you can run your own docker processes.
+### 7. Learn how to install Docker on your local machine and get the same containers running outside of Gitpod / Codespaces.
+
+
+- Step 1, Install Docker on your local machine or install Docker extension on Vscode from Gitpod/ Codespaces CDE.
+To install Docker and Docker deamon on local machine (Mac), I had to download and install docker.dmg application from the  [`www.docker.com url`](https://docs.docker.com/desktop/install/mac-install/)
+
+- Step 2, Open a vscode from your prefrreed CDE and install the docker extension.
+![](assest/week-1/docker%20extension.png)
+
+9. Launch an EC2 instance that has docker installed, and pull a container to demonstrate you can run your own docker processes.
