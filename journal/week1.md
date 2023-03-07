@@ -155,9 +155,7 @@ python3 -m flask run --host=0.0.0.0 --port=4567
 ` docker build -t backend-flask:new ./backend-flask`
 - Run container `docker run -it -d -p 4567:4567 -e BACKEND_URL='*' backend-flask:new` 
 
-I had some error when trying to run the CMD script
-![]()
-
+I had a permission error when trying to run the CMD script
 
 I was able to resolve this by changing the permission of the sh. script this code on the dockerfile
 `RUN chmod +x flask-python.sh`
@@ -166,10 +164,23 @@ I was able to resolve this by changing the permission of the sh. script this cod
 
 [Refrenence from stackoverflow](https://stackoverflow.com/questions/44687685/getting-permission-denied-in-docker-run)
 
+##### ![Output ](assest/week-1/Output.png)
+
+### 2. Push and tag a image to DockerHub (they have a free tier).
+first i had to login to my dockerhub account ```docker login```
+
+- Tag the docker image 
+```
+docker tag  backend-flask:new k12cambel/backend-flask:V2
+```
+- Push the docker image
+```
+docker push k12cambel/backend-flask:V2
+```
+
+### 3. Use multi-stage building for a Dockerfile build.
 
 
-3. Push and tag a image to DockerHub (they have a free tier).
-4. Use multi-stage building for a Dockerfile build.
 5. Implement a healthcheck in the V3 Docker compose file.
 6. Research best practices of Dockerfiles and attempt to implement it in your Dockerfile.
 7. Learn how to install Docker on your local machine and get the same containers running outside of Gitpod / Codespaces.
