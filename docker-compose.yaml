@@ -2,8 +2,8 @@ version: "3.3"
 services:
   backend-flask:
     environment:
-      FRONTEND_URL: "http://localhost:3000" 
-      BACKEND_URL: "http://localhost:4567" 
+      FRONTEND_URL: "34.232.69.165:3000" 
+      BACKEND_URL: "34.232.69.165:4567" 
     build: ./backend-flask
     image: "k12cambel/aws-bootcamp-cruddur-2023-backend-flask:now"
     ports:
