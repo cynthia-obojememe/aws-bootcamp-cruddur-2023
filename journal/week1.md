@@ -263,9 +263,49 @@ services:
 
 ---
 
+
+
 ** Lunch an EC2 T2 micro instance and allow ports http:40 ,ssh: ,backend:3000, frontend: 4567
-** Ssh into the instance using ssh keypair
-** install docker on instance `
+
+1. `Is` to start up an Ec2 instance, I used Aws linux image
+2. I created a security group with ports open for 3000, 4567 and http:80
+3. I connect the ec2 instance using ssh key and clone the aws-bootcamp-cruddur- folder
+
+![Output](assest/week-1/ec2%20setup.png)()
+
+** Ssh into the instance using ssh keypair**
+![](assest/week-1/Screenshot%202023-03-08%20at%201.10.56%20AM.png)
+1. Install docker `sudo amazon-linux-extras install docker`
+2. Start the docker engine `sudo service docker start`
+3. Grant permission for the user group of ec2 to have access to the docker engine `sudo usermod -a -G docker ec2-user`
+4. Make a new directory for the cruder files `mkdir aws-cruddur`
+5. Cd into the new directory
+6. Install git `sudo yum install git`
+7. Clone from my branch the  aws-bootcamp-cruddur-2023 files into the new directory `git clone -b week-1-test https://github.com/cynthia-obojememe/aws-bootcamp-cruddur-2023.git`
+8. `Cd` into the docker.compose.yaml file and nano into the file, Change the environment variable IPv4 of the frontend-react-js and backend endpoint to the public IPv4 of the ec2 instance (P.s, You can choose to use a static IP if you intent to access the docker for a longer duration)
+9. I was had some issues installing npm on the frontend folder, however, I got a script that worked
+
+`sudo yum install -y gcc-c++ make
+curl -sL https://rpm.nodesource.com/setup_16.x | sudo -E bash -
+sudo yum install -y nodejs `
+
+I was able to run npm install afterwards
+
+I got the script from the stack overflow website [](https://stackoverflow.com/questions/72544861/install-node-in-amazon-linux-2)
+
+10. To run the docker compose up command, I had to install the 
+
+
+```
+sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+
+sudo chmod +x /usr/local/bin/docker-compose
+```
+![Backend-flask output](assest/week-1/backend.png)
+![Frontend](assest/week-1/frontend.png)
+
+### P.S: I could not get the frontend-react-js to communicated with the backend-flasks as seen in the image above. i intend to search more for answers on how to resolve this.
+
 
 REFERENCE 
 1. youtube: https://www.youtube.com/watch?v=2_yOif1JlW0
