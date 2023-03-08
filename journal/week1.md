@@ -161,7 +161,12 @@ I was able to resolve this by changing the permission of the sh. script this cod
 
 ##### ![Output ](assest/week-1/Output.png)
 ---
+
+
 ### 2. Push and tag a image to DockerHub (they have a free tier).
+
+---
+
 first i had to login to my dockerhub account ```docker login```
 
 - Tag the docker image 
@@ -183,6 +188,8 @@ docker push k12cambel/backend-flask:V2
 
 
 ### 4. Implement a healthcheck in the V3 Docker compose file.
+
+---
 i was able to setup a healthcheck on the docker-compose yml file with the code below.
 
 ![Healthcheck code added to the docker-compose yaml file](assest/week-1/Screenshot%202023-03-07%20at%209.24.18%20PM.png)
@@ -207,14 +214,61 @@ healthcheck:
 **I Install Docker on MacOS** , To install Docker desktop and Docker deamon on local machine (Mac), I had to download and install docker.dmg application from the  [`www.docker.com url`](https://docs.docker.com/desktop/install/mac-install/)
 ![docker desktop](assest/week-1/Screenshot%202023-03-07%20at%209.56.15%20PM.png)
 
-- I cloned my git reposi
+- I cloned my git repo into my mac desktop 
+- 
+- `Local Terminal actions`
+```
+- cd desktop
+- mkdir aws-bootcamp-local
+- git clone [my aws-bootcamp-cruddur repo] https://github.com/cynthia-obojememe/aws-bootcamp-cruddur-2023.git
+- brew install npm
+- cd frontend-react-js
+- npm install
+```
+- code . docker-compose.yml to change the environment variable to localhost endpoint
+```
+version: "3.8"
+services:
+  backend-flask:
+    environment:
+      FRONTEND_URL: "http://localhost:3000" 
+      BACKEND_URL: "http://localhost:4567" 
+    build: ./backend-flask
+    ports:
+      - "4567:4567"
+    volumes:
+      - ./backend-flask:/backend-flask
+    healthcheck:
+      test: curl --fail http://localhost:4567/api/activities/home  <-----
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 
+  frontend-react-js:
+    environment:
+      REACT_APP_BACKEND_URL: "http://localhost:4567"
+    build: ./frontend-react-js
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend-react-js:/frontend-react-js
+  ```
 
-### 7. Launch an EC2 instance that has docker installed, and pull a container to demonstrate you can run your own docker processes.
+![Output of the running docker container in my local desktop](assest/week-1/local%20running%20dcoker.png)
+
+---
+
+### 6. Launch an EC2 instance that has docker installed, and pull a container to demonstrate you can run your own docker processes.
+
+---
+
+** Lunch an EC2 T2 micro instance and allow ports http:40 ,ssh: ,backend:3000, frontend: 4567
+** Ssh into the instance using ssh keypair
+** install docker on instance `
 
 REFERENCE 
 1. youtube: https://www.youtube.com/watch?v=2_yOif1JlW0
 2. Github:  https://github.com/coreos/bugs/issues/1848
 3. Stackoverflow: https://stackoverflow.com/questions/44687685/getting-permission-denied-in-docker-run
-4.
+4. Github:  https://github.com/nickda/aws-bootcamp-cruddur-2023/blob/main/journal/week1.md
