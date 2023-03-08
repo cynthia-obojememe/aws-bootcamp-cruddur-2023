@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+  backend-flask:
+    environment:
+      FRONTEND_URL: "http://localhost:3000" 
+      BACKEND_URL: "http://localhost:4567" 
+    build: ./backend-flask
+    image: "k12cambel/aws-bootcamp-cruddur-2023-backend-flask:now"
+    ports:
+      - "4567:4567"
+    volumes:
+      - ./backend-flask:/backend-flask
+    healthcheck:
+      test: curl --fail http://localhost:4567/api/activities/home  <-----
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  frontend-react-js:
+    environment:
+      REACT_APP_BACKEND_URL: "http://localhost:4567"
+    build: ./frontend-react-js
+    image: "k12cambel/aws-bootcamp-cruddur-2023-frontend-react-js:now"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend-react-js:/frontend-react-js
