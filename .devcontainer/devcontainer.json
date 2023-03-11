@@ -23,7 +23,13 @@
 		}
 	}
 
-	
+	{
+		"name": "My Dev Container",
+		"image": "my-dev-container",
+		"extensions": ["dbaeumer.vscode-eslint"],
+		"runArgs": ["-u", "node"],
+		"postCreateCommand": "npm install"
+	}
 	//"features": {
 		//" "ghcr.io/devcontainers-contrib/features/npm-package:1": {}
 
