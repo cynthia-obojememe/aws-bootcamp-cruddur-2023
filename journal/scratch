@@ -1,0 +1,3 @@
+export CONNECTION_URL="postgresql://postgres:password@localhost:5432/cruddur"
+
+export PROD_CONNECTION_URL="postgresql://CruddurR:Cruddur1!!xperience@cruddur-db-instance.ctkraqsqzpz8.us-west-2.rds.amazonaws.com:5432/cruddur"
