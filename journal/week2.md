@@ -50,8 +50,8 @@ RequestsInstrumentor().instrument()
 
 ```
 
-`
-![HoneyComb output](assest/honeycomb.png)
+```
+![HoneyComb output](assest/oneycomb.png)
 
 ```
 from opentelemetry import trace
