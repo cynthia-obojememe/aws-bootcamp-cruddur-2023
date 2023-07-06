@@ -5,9 +5,8 @@ tracer = trace.get_tracer("userID")
 
 class UserActivities:
   def run(user_handle):
-    with tracer.start_as_current_span("UserID-mock-activities"):
+    with tracer.start_as_current_span("userID-mock-activities"):
       span = trace.get_current_span()
-      span.set_attribute("User.id", id.isoformat())
       model = {
         'errors': None,
         'data': None
@@ -27,4 +26,5 @@ class UserActivities:
           'expires_at': (now + timedelta(days=31)).isoformat()
         }]
         model['data'] = results
+        span.set_attribute("User.id", now.isoformat())
     return model
