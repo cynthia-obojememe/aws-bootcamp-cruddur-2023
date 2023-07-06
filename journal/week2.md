@@ -1,6 +1,6 @@
 # Week 2 — Distributed Tracing
 
-## #1 HONEYCOMB Setup
+## #1 HONEYCOMB SETUP
 Create an account with Honeycomb via https://ui.honeycomb.io/
 
 
@@ -78,5 +78,15 @@ class HomeActivities:
     with tracer.start_as_current_span("home-activities-mock-data"):
  ```
 
-## [Homework output] 
-  ![Homework output]()
+## 
+  ![Homework output](assest/honey%20traces.png)
+
+## #2 AWS XRAY SETUP
+
+-- To get started, Run the AWS xray via the terminal using the below command.
+`
+pip install aws-xray-sdk
+`
+
+
+
