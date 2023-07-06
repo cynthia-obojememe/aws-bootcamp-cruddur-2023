@@ -1,21 +1,34 @@
 # Week 2 — Distributed Tracing
 
-### HONEYCOMB Setup
-create an account with honeycomb via https://ui.honeycomb.io/
+## #1 HONEYCOMB Setup
+Create an account with Honeycomb via https://ui.honeycomb.io/
 
-*** SETUP HONEYCOMB ENV on the enviroment
+
+## Required Homework
+
+```
+- Observer and understanding of the use of Honeycomb, which is an application used for logging and tracing data. Also used OTEL-Open 
+  Telemetry open source observability framework with Honeycomb to instrument traces and logs.
+- Instrument Honeycomb for the fronted application to observe network latency between frontend and backend
+- Add custom Instrumentation to honeycomb to add more attributes eg UserID and a custom span
+- Run custom queries in Honeycomb and save them later eg latency by UserID
+
+
+```
+
+*** SETUP HONEYCOMB ENV on the environment
 
 ```
 export HONEYCOMB_API_KEY=""
 export HONEYCOMB_SERVICE_NAME="Cruddur"
 ```
-- 1. create opentelement (OTEL ENV)Honeycomb for the back-end on docker compose
+- a. create opentelement (OTEL ENV)Honeycomb for the back-end on docker compose.yml
 ```
       OTEL_SERVICE_NAME: 'backend-flask'
       OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
       OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}" 
 ````
-- 2. ADD The DEPENDENCES TO The requiremnt.txt for the opentelemetry installation
+- b. ADD The DEPENDENCES TO The requiremnt.txt for the opentelemetry installation
 ```
 opentelemetry-api 
 opentelemetry-sdk 
@@ -25,7 +38,7 @@ opentelemetry-instrumentation-requests
 
 ```
 
---3. ADD to app.py
+-- c. ADD to app.py
 
 ```
 # Honeycomb ----
@@ -50,7 +63,7 @@ RequestsInstrumentor().instrument()
 
 ```
 
-```
+
 ![HoneyComb output](assest/oneycomb.png)
 
 ```
@@ -64,3 +77,6 @@ class HomeActivities:
   def run():
     with tracer.start_as_current_span("home-activities-mock-data"):
  ```
+
+## [Homework output] 
+  ![Homework output]()
