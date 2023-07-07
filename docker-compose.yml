@@ -9,6 +9,9 @@ services:
       OTEL_SERVICE_NAME: 'backend-flask'
       OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
       OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}" 
+      #AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
+      AWS_XRAY_URL: "*4567-${CODESPACE_NAME}-4567.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}*"
+      AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
     build: ./backend-flask
     ports:
       - "4567:4567"
@@ -28,13 +31,22 @@ services:
       REACT_APP_AWS_COGNITO_REGION: "us-west-2"
       REACT_APP_AWS_USER_POOLS_ID: "us-west-2_AjTH0zijO"
       REACT_APP_CLIENT_ID: "7kci4p1enkf33fb223olf5t4qp"
-
     build: ./frontend-react-js
-    
     ports:
       - "3000:3000"
     volumes:
       - ./frontend-react-js:/frontend-react-js
+  xray-daemon:
+    image: "amazon/aws-xray-daemon"
+    environment:
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+      AWS_REGION: "us-west-2"
+    command:
+      - "xray -o -b xray-daemon:2000"
+    ports:
+      - 2000:2000/udp
+
     healthcheck:
       test: ["CMD-SHELL", "curl -f https://${CODESPACE_NAME}-3000.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN} || exit 1"]
       interval: 30s

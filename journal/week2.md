@@ -125,4 +125,38 @@ aws xray create-group \
    --group-name "Cruddurr" \
    --filter-expression "service(\"backend-flask\")"
 ```
+** The x-ray group can be view on the aws console via the setting on the cloudwatch page.
 
+-- create a simple rule on the cli 
+```
+aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
+```
+
+
+- **Install Daemon Service**
+```
+-- Add the below code to the docker-compose.yml for X-ray daemon
+ xray-daemon:
+    image: "amazon/aws-xray-daemon"
+    environment:
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+      AWS_REGION: "us-west-2"
+    command:
+      - "xray -o -b xray-daemon:2000"
+    ports:
+      - 2000:2000/udp
+```
+
+--We need to add these two env vars to our backend-flask in our docker-compose.yml file
+
+```
+AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
+      AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
+```
+OR ( for codespaces)
+
+```
+AWS_XRAY_URL: "*4567-${CODESPACE_NAME}-4567.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}*"
+      AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
+```
