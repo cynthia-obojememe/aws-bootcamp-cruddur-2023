@@ -121,7 +121,8 @@ XRayMiddleware(app, xray_recorder)
 
 -- Create a new group for tracing and analyzing errors and faults in a Flask application.
 ```
-FLASK_ADDRESS="https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
 aws xray create-group \
-   --group-name "Cruddur" \
-   --filter-expression "service(\"$FLASK_ADDRESS\")"
+   --group-name "Cruddurr" \
+   --filter-expression "service(\"backend-flask\")"
+```
+
