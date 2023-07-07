@@ -84,9 +84,44 @@ class HomeActivities:
 ## #2 AWS XRAY SETUP
 
 -- To get started, Run the AWS xray via the terminal using the below command.
-`
+```
 pip install aws-xray-sdk
-`
 
+AND add the above code to the backend requirement file
+```
 
+- add the x-ray middleware setup on `app.py`
+```
+# xray
+from aws_xray_sdk.core import xray_recorder
+from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
+xray_url = os.getenv("AWS_XRAY_URL")
+xray_recorder.configure(service='Cruddur', dynamic_naming=xray_url)
+XRayMiddleware(app, xray_recorder)
+```
 
+-- Create a Sampling Rule name 'Backend-flask'. This code is to be written in a new  `aws/json/xray.json` file
+```
+{
+  "SamplingRule": {
+      "RuleName": "Cruddur",
+      "ResourceARN": "*",
+      "Priority": 9000,
+      "FixedRate": 0.1,
+      "ReservoirSize": 5,
+      "ServiceName": "Cruddur",
+      "ServiceType": "*",
+      "Host": "*",
+      "HTTPMethod": "*",
+      "URLPath": "*",
+      "Version": 1
+  }
+}
+```
+
+-- Create a new group for tracing and analyzing errors and faults in a Flask application.
+```
+FLASK_ADDRESS="https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+aws xray create-group \
+   --group-name "Cruddur" \
+   --filter-expression "service(\"$FLASK_ADDRESS\")"
