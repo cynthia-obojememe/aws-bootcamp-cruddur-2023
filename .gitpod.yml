@@ -11,6 +11,13 @@ tasks:
   - name: frontend-react-js
     init: |
       npm i 
+
+  - name: flask
+    command: |
+      ruby "$THEIA_WORKSPACE_ROOT/bin/backend/generate-env"
+      cd backend-flask
+      pip install -r requirements.txt
+      
   - name: postgres
     init: |
       curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
