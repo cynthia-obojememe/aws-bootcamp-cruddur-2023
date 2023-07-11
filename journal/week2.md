@@ -125,7 +125,7 @@ aws xray create-group \
    --group-name "Cruddurr" \
    --filter-expression "service(\"backend-flask\")"
 ```
-** The x-ray group can be view on the aws console via the setting on the cloudwatch page.
+** The x-ray group can be viewed on the AWS console via the setting on the Cloudwatch page.
 
 -- create a simple rule on the cli 
 ```
@@ -160,3 +160,24 @@ OR ( for codespaces)
 AWS_XRAY_URL: "*4567-${CODESPACE_NAME}-4567.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}*"
       AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
 ```
+
+After adding I got subsegments 
+![](https://user-images.githubusercontent.com/115455157/222913066-40649d6e-d80b-49d4-8654-e2ee37a7fe83.jpg)
+
+## Setup AWS X-RA Custom Subsegments
+
+- I setup a segment to capture data from the `notification_activities.py`
+
+import xray recorder to the notification_activities.py
+```
+from aws_xray_sdk.core import xray_recorder
+```
+** setup the segment to capture data from the notification page
+```
+
+
+```
+After adding I got subsegments 
+![](https://user-images.githubusercontent.com/115455157/222913066-40649d6e-d80b-49d4-8654-e2ee37a7fe83.jpg)
+
+
