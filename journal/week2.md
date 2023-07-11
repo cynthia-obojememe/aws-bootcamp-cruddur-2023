@@ -162,9 +162,9 @@ AWS_XRAY_URL: "*4567-${CODESPACE_NAME}-4567.${GITHUB_CODESPACES_PORT_FORWARDING_
 ```
 
 After adding I got subsegments 
-![](https://user-images.githubusercontent.com/115455157/222913066-40649d6e-d80b-49d4-8654-e2ee37a7fe83.jpg)
+![](assest/userdata.png)
 
-## Setup AWS X-RA Custom Subsegments
+## Setup AWS X-RA Custom segment
 
 - I setup a segment to capture data from the `notification_activities.py`
 
@@ -177,7 +177,7 @@ from aws_xray_sdk.core import xray_recorder
 
 
 ```
-After adding I got subsegments 
-![](https://user-images.githubusercontent.com/115455157/222913066-40649d6e-d80b-49d4-8654-e2ee37a7fe83.jpg)
+After adding I got subsegments in the notification section
+![](assest/SCR-20230711-pbkv.png)
 
 
