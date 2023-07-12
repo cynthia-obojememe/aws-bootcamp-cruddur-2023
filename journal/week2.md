@@ -19,7 +19,7 @@ Create an account with Honeycomb via https://ui.honeycomb.io/
 *** SETUP HONEYCOMB ENV on the environment
 
 ```
-export HONEYCOMB_API_KEY=""
+export HONEYCOMB_API_KEY="
 export HONEYCOMB_SERVICE_NAME="Cruddur"
 ```
 - a. create opentelement (OTEL ENV)Honeycomb for the back-end on docker compose.yml
@@ -67,7 +67,7 @@ RequestsInstrumentor().instrument()
 ![HoneyComb output](assest/oneycomb.png)
 
 ```
-from opentelemetry import trace
+from open telemetry import trace
 
 
 tracer = trace.get_tracer("home.activities")
@@ -83,7 +83,7 @@ class HomeActivities:
 
 ## #2 AWS XRAY SETUP
 
--- To get started, Run the AWS xray via the terminal using the below command.
+-- Run the AWS xray via the terminal using the below command to get started.
 ```
 pip install aws-xray-sdk
 
@@ -127,7 +127,7 @@ aws xray create-group \
 ```
 ** The x-ray group can be viewed on the AWS console via the setting on the Cloudwatch page.
 
--- create a simple rule on the cli 
+-- Create a simple rule on the CLI 
 ```
 aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
 ```
@@ -135,7 +135,7 @@ aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
 
 - **Install Daemon Service**
 ```
--- Add the below code to the docker-compose.yml for X-ray daemon
+-- Add the below code to the docker-compose.yml for the X-ray daemon
  xray-daemon:
     image: "amazon/aws-xray-daemon"
     environment:
@@ -177,7 +177,16 @@ from aws_xray_sdk.core import xray_recorder
 
 
 ```
-After adding I got subsegments in the notification section
+- After adding I got subsegments in the notification section
+  
 ![](assest/SCR-20230711-pbkv.png)
+
+
+## #3 ROLLBAR SETUP
+
+
+
+
+
 
 
