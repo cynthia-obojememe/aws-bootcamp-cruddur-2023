@@ -183,10 +183,54 @@ from aws_xray_sdk.core import xray_recorder
 
 
 ## #3 ROLLBAR SETUP
+** 1. add blinker, rollbar to the backend requirements.txt list
 
+** 2. cd into the backend and install the backend dependecncies.
+```
+pip install -r requirements.txt
+```
+** 3. Add the rollbar access token.
+```
+export ROLLBAR_ACCESS_TOKEN="d******************"
+gp env ROLLBAR_ACCESS_TOKEN="d******************"
+```
+** 4. Install rollbar in the backend app.py file
+```
+import os
+import rollbar
+import rollbar.contrib.flask
+from flask import got_request_exception
 
+rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
+#@app.before_first_request --> --> -->
+with app.app_context():
+  def init_rollbar():
+      """init rollbar module"""
+      rollbar.init(
+          # access token
+          rollbar_access_token,
+          # environment name
+          'production',
+          # server root directory, makes tracebacks prettier
+          root=os.path.dirname(os.path.realpath(__file__)),
+          # flask already sets up logging
+          allow_logging_basic_config=False)
 
+      # send exceptions from `app` to rollbar, using flask's signal system.
+      got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
+```
+###Backend Rollbar Error
+I was facing poblem while trying to start up the backend container, i got the error captured below from the log. "Attributerror
 
+![](assest/SCR-20230711-pbkv.png)
 
+###Backend Rollbar Solved
+I was able to resolve the issue by the solution proposed by one of our bootcamper (KiryuChan)
 
-
+"Essentially I commented out 
+`@app.before_first_request`
+ and replaced it with 
+`with app.app_context():`
+ and then indented the 
+`def_init_rollbar():``
+ function"
