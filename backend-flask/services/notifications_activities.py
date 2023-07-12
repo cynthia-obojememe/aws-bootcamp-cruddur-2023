@@ -3,7 +3,7 @@ from aws_xray_sdk.core import xray_recorder
 
 class NotificationsActivities:
   def run():
-    # segment = xray_recorder.begin_segment("notifications")
+    segment = xray_recorder.begin_segment("notifications")
     now = datetime.now(timezone.utc).astimezone()
     # xray
     # subsegment = xray_recorder.begin_subsegment('mock-data')
@@ -31,6 +31,7 @@ class NotificationsActivities:
         'created_at': (now - timedelta(days=2)).isoformat()
       }],
     }]
+    xray_recorder.end_segment
     return results
-    # xray_recorder.end_segment()
-    
+  
+  

@@ -225,12 +225,13 @@ I was facing poblem while trying to start up the backend container, i got the er
 ![](assest/SCR-20230711-pbkv.png)
 
 ###Backend Rollbar Solved
-I was able to resolve the issue by the solution proposed by one of our bootcamper (KiryuChan)
+I was able to resolve the issue by the solution i got from slack [https://stackoverflow.com/questions/73570041/flask-deprecated-before-first-request-how-to-update]
 
 "Essentially I commented out 
 `@app.before_first_request`
  and replaced it with 
 `with app.app_context():`
- and then indented the 
+ and then move the 
 `def_init_rollbar():``
- function"
+"""init rollbar module""" 
+and indent the function"
