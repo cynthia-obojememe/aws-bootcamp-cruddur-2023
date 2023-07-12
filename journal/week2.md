@@ -238,3 +238,30 @@ and indent the function"
 ![](assest/rollbar%20error.png/)
 
 ## #4 Cloudwatch SETUP
+** 1.For CLoudWatch, I had to first install `watchtower` by adding it to my requirement.txt. I also imported `watchtower`, `logging` and `strftime from time`. using the code below
+
+** Add to the app.py file
+```
+import watchtower
+import logging
+from time import strftime
+```
+** Setup Logger to Use Cloudwatch
+```
+# Configuring Logger to Use CloudWatch
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.DEBUG)
+console_handler = logging.StreamHandler()
+cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
+LOGGER.addHandler(console_handler)
+LOGGER.addHandler(cw_handler)
+LOGGER.info("some message")
+```
+** Set enviroment varablies in backend flask in `docker-compose.yml` 
+```
+      AWS_DEFAULT_REGION: "${AWS_DEFAULT_REGION}"
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+```
+*setup a log stream data from the home activities .py `def run(Logger):` and `LOGGER.info("HomeActivities")`
+![](assest/cloudwatch.png)
