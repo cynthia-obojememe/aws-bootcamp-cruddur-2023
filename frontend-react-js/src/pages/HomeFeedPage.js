@@ -44,6 +44,8 @@ export default function HomeFeedPage() {
     }
   };
 
+  
+
  // check if we are authenicated
   const checkAuth = async () => {
     Auth.currentAuthenticatedUser({
