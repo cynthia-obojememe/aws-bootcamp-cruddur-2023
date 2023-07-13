@@ -148,10 +148,11 @@ def data_create_message():
 @app.route("/api/activities/home", methods=['GET'])
 @xray_recorder.capture('home_activitiess')
 def data_home():
-  # print(
-  #   request.headers.get('Authorization')
-  # )
-  data = HomeActivities.run(logger=LOGGER)
+  print(
+    request.headers.get('Authorization')
+  )
+  # data = HomeActivities.run(logger=LOGGER)
+  data = HomeActivities.run()
   return data, 200
 
 @app.route("/api/activities/notifications", methods=['GET'])

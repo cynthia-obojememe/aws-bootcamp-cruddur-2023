@@ -13,14 +13,15 @@ import ReplyForm from '../components/ReplyForm';
 import Cookies from 'js-cookie'
 
 // React set a state
-const [user, setUser] = React.useState(null);
-// export default function HomeFeedPage() {
-//   const [activities, setActivities] = React.useState([]);
-//   const [popped, setPopped] = React.useState(false);
-//   const [poppedReply, setPoppedReply] = React.useState(false);
-//   const [replyActivity, setReplyActivity] = React.useState({});
+  
+export default function HomeFeedPage() {
+  const [activities, setActivities] = React.useState([]);
+  const [popped, setPopped] = React.useState(false);
+  const [poppedReply, setPoppedReply] = React.useState(false);
+  const [replyActivity, setReplyActivity] = React.useState({});
+  const [user, setUser] = React.useState(null);
       // REact new code
-//   const dataFetchedRef = React.useRef(false);
+  const dataFetchedRef = React.useRef(false);
 
 
   const loadData = async () => {
@@ -71,7 +72,6 @@ const [user, setUser] = React.useState(null);
     loadData();
     checkAuth();
   }, [])
-
   return (
     <article>
       <DesktopNavigation user={user} active={'home'} setPopped={setPopped} />
