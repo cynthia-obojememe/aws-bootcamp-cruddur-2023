@@ -299,12 +299,19 @@ cors = CORS(
   methods="OPTIONS,GET,HEAD,POST"
 )
 ```
+![](assest/confirmation.png)
+![](assest/sign%20up%20after%20confirmation.png)
+![](assest/successful%20login.png)
 
-![](assest/userdata.png)
-![](assest/userdata.png)
-![](assest/userdata.png)
-![](assest/userdata.png)
+
 
 ### Setup up JWT Token verification for backend-flask
 
-** 
+** The signing page with the home activities modification
+
+![](assest/jwt%20signing.png)
+
+
+** The sign-out page from the home activities
+
+![](assest/jwt%20signout.png)
