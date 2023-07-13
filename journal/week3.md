@@ -304,3 +304,7 @@ cors = CORS(
 ![](assest/userdata.png)
 ![](assest/userdata.png)
 ![](assest/userdata.png)
+
+### Setup up JWT Token verification for backend-flask
+
+** 

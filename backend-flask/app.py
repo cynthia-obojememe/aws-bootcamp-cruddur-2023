@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 from flask_cors import CORS, cross_origin
 import os
+import sys
 
 from services.home_activities import *
 from services.notifications_activities import *
@@ -13,6 +14,10 @@ from services.message_groups import *
 from services.messages import *
 from services.create_message import *
 from services.show_activity import *
+from lib.cognito_token_verification import  CognitoTokenVerification
+
+# cognito
+# from flask_awscognito import AWSCognitoAuthentication
 
 # Honeycomb ----
 from opentelemetry import trace
@@ -62,6 +67,14 @@ xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
 
 
 app = Flask(__name__)
+
+# congito
+cognito_token_verification = CognitoTokenVerification(
+  user_pool_client_id = os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"),
+  user_pool_id = os.getenv("AWS_COGNITO_USER_POOL_ID"),
+  region = os.getenv ("AWS_DEFAULT_REGION")
+)
+
 
 # xray ---
 XRayMiddleware(app, xray_recorder)
