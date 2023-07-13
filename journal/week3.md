@@ -240,3 +240,67 @@ export default function ConfirmationPage() {
   }
 
 ```
+### RECOVERY PAGE
+
+```
+mport { Auth } from 'aws-amplify';
+
+export default function RecoverPage() {
+  // Username is Eamil
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [passwordAgain, setPasswordAgain] = React.useState('');
+  const [code, setCode] = React.useState('');
+  const [errors, setErrors] = React.useState('');
+  const [formState, setFormState] = React.useState('send_code');
+
+  const onsubmit_send_code = async (event) => {
+    event.preventDefault();
+    setErrors('')
+    Auth.forgotPassword(username)
+    .then((data) => setFormState('confirm_code') )
+    .catch((err) => setErrors(err.message) );
+    return false
+  }
+  const onsubmit_confirm_code = async (event) => {
+    event.preventDefault();
+    setErrors('')
+    if (password == passwordAgain){
+      Auth.forgotPasswordSubmit(username, code, password)
+      .then((data) => setFormState('success'))
+      .catch((err) => setErrors(err.message) );
+    } else {
+      setErrors('Passwords do not match')
+    }
+    return false
+```
+
+### READ TOKEN TO BACKEND_FLASK
+```
+`from flask import request`
+
+@app.route("/api/activities/home", methods=['GET'])
+def data_home():
+  print(
+    request.headers.get('Authorization')
+  )
+  data = HomeActivities.run(logger=LOGGER)
+  return data, 200
+```
+
+### Update CORS in app.py
+
+```
+cors = CORS(
+  app, 
+  resources={r"/api/*": {"origins": origins}},
+  headers=['Content-Type', 'Authorization'], 
+  expose_headers='Authorization',
+  methods="OPTIONS,GET,HEAD,POST"
+)
+```
+
+![](assest/userdata.png)
+![](assest/userdata.png)
+![](assest/userdata.png)
+![](assest/userdata.png)

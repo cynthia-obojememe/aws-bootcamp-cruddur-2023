@@ -73,6 +73,7 @@ RequestsInstrumentor().instrument()
 frontend = os.getenv('FRONTEND_URL')
 backend = os.getenv('BACKEND_URL')
 origins = [frontend, backend]
+
 cors = CORS(
   app, 
   resources={r"/api/*": {"origins": origins}},
@@ -151,8 +152,7 @@ def data_home():
   print(
     request.headers.get('Authorization')
   )
-  # data = HomeActivities.run(logger=LOGGER)
-  data = HomeActivities.run()
+  data = HomeActivities.run(logger=LOGGER)
   return data, 200
 
 @app.route("/api/activities/notifications", methods=['GET'])
