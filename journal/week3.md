@@ -118,5 +118,125 @@ export default function ProfileInfo(props) {
 ### SignIn page
 
 ```
+import { Auth } from 'aws-amplify';
+
+export default function SigninPage() {
+
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [errors, setErrors] = React.useState('');
+
+
+  const onsubmit = async (event) => {
+    setErrors('')
+    event.preventDefault();
+      Auth.signIn(email, password)
+      .then(user => {
+        console.log('user',user)
+        localStorage.setItem("access_token", user.signInUserSession.accessToken.jwtToken)
+        window.location.href = "/"
+      })
+      .catch(error=> { 
+        if (error.code == 'UserNotConfirmedException') {
+          window.location.href = "/confirm"
+        }
+        setErrors(error.message)
+    });
+    return false
+  }
+```
+
+### Sign-up page
+
+```
+mport { Auth } from 'aws-amplify';
+
+export default function SignupPage() {
+
+  // Username is Eamil
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [errors, setErrors] = React.useState('');
+  
+
+const onsubmit = async (event) => {
+  event.preventDefault();
+  setErrors('')
+  try {
+      const { user } = await Auth.signUp({
+        username: email,
+        password: password,
+        attributes: {
+            name: name,
+            email: email,
+            preferred_username: username,
+        },
+        autoSignIn: { // optional - enables auto sign in after user is confirmed
+            enabled: true,
+        }
+      });
+      console.log(user);
+      window.location.href = `/confirm?email=${email}`
+  } catch (error) {
+      console.log(error);
+      setErrors(error.message)
+  }
+  return false
+  }
+
+```
+### Confirmation Page
+
+```
+// [TODO] Authenication
+import { Auth } from 'aws-amplify';
+
+export default function ConfirmationPage() {
+  const [email, setEmail] = React.useState('');
+  const [code, setCode] = React.useState('');
+  const [errors, setErrors] = React.useState('');
+  const [codeSent, setCodeSent] = React.useState(false);
+
+  const params = useParams();
+
+  const code_onchange = (event) => {
+    setCode(event.target.value);
+  }
+  const email_onchange = (event) => {
+    setEmail(event.target.value);
+  }
+
+  const resend_code = async (event) => {
+    setErrors('')
+    try {
+      await Auth.resendSignUp(email);
+      console.log('code resent successfully');
+      setCodeSent(true)
+    } catch (err) {
+      // does not return a code
+      // does cognito always return english
+      // for this to be an okay match?
+      console.log(err)
+      if (err.message == 'Username cannot be empty'){
+        setErrors("You need to provide an email in order to send Resend Activiation Code")   
+      } else if (err.message == "Username/client id combination not found."){
+        setErrors("Email is invalid or cannot be found.")   
+      }
+    }
+  }
+
+  const onsubmit = async (event) => {
+    event.preventDefault();
+    setErrors('')
+    try {
+      await Auth.confirmSignUp(email, code);
+      window.location.href = "/"
+    } catch (error) {
+      setErrors(error.message)
+    }
+     return false
+  }
 
 ```
