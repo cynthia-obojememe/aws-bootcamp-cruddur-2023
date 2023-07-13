@@ -12,14 +12,16 @@ import ReplyForm from '../components/ReplyForm';
 // [TODO] Authenication
 import Cookies from 'js-cookie'
 
-export default function HomeFeedPage() {
-  const [activities, setActivities] = React.useState([]);
-  const [popped, setPopped] = React.useState(false);
-  const [poppedReply, setPoppedReply] = React.useState(false);
-  const [replyActivity, setReplyActivity] = React.useState({});
-  const [user, setUser] = React.useState(null);
-  const dataFetchedRef = React.useRef(false);
-  
+// React set a state
+const [user, setUser] = React.useState(null);
+// export default function HomeFeedPage() {
+//   const [activities, setActivities] = React.useState([]);
+//   const [popped, setPopped] = React.useState(false);
+//   const [poppedReply, setPoppedReply] = React.useState(false);
+//   const [replyActivity, setReplyActivity] = React.useState({});
+      // REact new code
+//   const dataFetchedRef = React.useRef(false);
+
 
   const loadData = async () => {
     try {
