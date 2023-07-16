@@ -69,12 +69,12 @@ DELETE FROM table_name WHERE condition; -- Delete data from a table
 ##### Create Database in postgres client
 ```
 create
-CREATE database cruddur;
+createdb cruddur -host localhost -Upostgres (inside the postgres terminal)
 ```
-Add UUID Extension (Universally unique Identifier) add to the schema.sql file
+Add UUID Extension (Universally unique Identifier) add to the `schema.sql` file
 ```
 create extension "uuid-ossp";
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+`CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`
 ```
 and RUN
 
@@ -91,5 +91,37 @@ export CONNECTION_URL = 'postgresql://[user[:password]@][netloc][:port][/dbname]
 
 e.g postgres://postgres:123456@127.0.0.1:5432/dummy
 
+```
+
+create a folder in the backend (bin) for bash 
+- create a file to creat database and drop database file
+
+```
+#!/bin/bash
+
+echo "db-create"
+NO_DB_CONNECTION_URL=$(sed 's/\/cruddur//g' <<<"$CONNECTION_URL")
+psql $NO_DB_CONNECTION_URL -c "create database cruddur;"
+
+```
+Drop database
+
+```
+#!/bin/bash
+echo "db-drop"
+NO_DB_CONNECTION_URL=$(sed 's/\/cruddur//g' <<<"$CONNECTION_URL")
+psql $NO_DB_CONNECTION_URL -c "drop database cruddur;"
+
+```
+
+create schema load file for bash 
+
+```
+#!/bin/bash
+
+schema_path="$(realpath .)/db/schema.sql"
+echo $schema_path
+
+psql $CONNECTION_URL cruddur < db/schema.sql 
 ```
 

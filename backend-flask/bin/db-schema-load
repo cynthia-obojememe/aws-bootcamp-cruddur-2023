@@ -1,6 +1,14 @@
 #!/bin/bash
 
+echo "db-schema-load"
 schema_path="$(realpath .)/db/schema.sql"
 echo $schema_path
 
-psql $CONNECTION_URL cruddur < db/schema.sql 
+if [ "$1" = "prod" ]; then
+    echo "using production key"
+    URL=$PROD_CONNECTION_URL
+else
+    URL=$CONNECTION_URL
+fi
+
+psql $URL cruddur < db/schema.sql 
