@@ -117,11 +117,49 @@ psql $NO_DB_CONNECTION_URL -c "drop database cruddur;"
 create schema load file for bash 
 
 ```
-#!  /usr/bin/bash
+#!/bin/bash
+
+echo "db-schema-load"
+schema_path="$(realpath .)/db/schema.sql"
+echo $schema_path
+
+if [ "$1" = "prod" ]; then
+    echo "using production key"
+    URL=$PROD_CONNECTION_URL
+else
+    URL=$CONNECTION_URL
+fi
+
+psql $URL cruddur < db/schema.sql 
+
+```
+Create a db-connect file (in bin folder) to access the database
+
+```
+#!/bin/bash
+
+psql $CONNECTION_URL
+```
+
+Creat a db-seed file to load data into the database
+
+```
+#! /usr/bin/bash
 
 CYAN='\033[1;36m'
 NO_COLOR='\033[0m'
-LABEL="db-create"
+LABEL="db-seed"
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
-```
 
+seed_path="$(realpath .)/db/seed.sql"
+echo $seed_path
+
+if [ "$1" = "prod" ]; then
+  echo "Running in production mode"
+  URL=$PROD_CONNECTION_URL
+else
+  URL=$CONNECTION_URL
+fi
+
+psql $URL cruddur < $seed_path
+```
