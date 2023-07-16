@@ -117,11 +117,11 @@ psql $NO_DB_CONNECTION_URL -c "drop database cruddur;"
 create schema load file for bash 
 
 ```
-#!/bin/bash
+#!  /usr/bin/bash
 
-schema_path="$(realpath .)/db/schema.sql"
-echo $schema_path
-
-psql $CONNECTION_URL cruddur < db/schema.sql 
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="db-create"
+printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 ```
 
