@@ -163,3 +163,12 @@ fi
 
 psql $URL cruddur < $seed_path
 ```
+Create Postgress drivers (add to requirement.txt)
+
+```
+psycopg[binary]
+psycopg[pool]
+```
+
+DB Object and connection Pool
+-creat a file db.py in the backend lib folder
