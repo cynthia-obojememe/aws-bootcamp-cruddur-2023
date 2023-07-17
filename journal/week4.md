@@ -1,6 +1,8 @@
 # Week 4 — Postgres and RDS
 ## Postgrest / RDS Required Homework
 
+<!-- (curl ifconfig.me) --> to get your own ip address GITPOD_IP=$(curl ifconfig.me)
+
 - SETUP RDS AND POSTGRESS ON YOUR DOCKER-COMPOSE FILE FROM WEEK 1 CODE 
 Setup an RDS Instance running using the CLI via [AWS CLI RDS COMMANDS](https://docs.aws.amazon.com/cli/latest/reference/rds/create-db-instance.html)
 
@@ -172,3 +174,23 @@ psycopg[pool]
 
 DB Object and connection Pool
 -creat a file db.py in the backend lib folder
+
+Modifiy The security group
+
+set env for aws security group
+
+```
+export DB_SG_ID="sg-"
+gp env DB_SG_ID="sg-"
+
+export DB_SG_RULE_ID="sgr-"
+gp env DB_SG_RULE_ID="sgr-"
+```
+
+```
+#! /usr/bin/bash
+
+aws ec2 modify-security-group-rules \
+    --group-id $DB_SG_ID \
+    --security-group-rules "SecurityGroupRuleId=$DB_SG_RULE_ID,SecurityGroupRule={IpProtocol=tcp,FromPort=5432,ToPort=5432,CidrIpv4=$GITPOD_IP/32}"
+```
