@@ -2,3 +2,26 @@ export CONNECTION_URL="postgresql://postgres:password@localhost:5432/cruddur"
 
 export PROD_CONNECTION_URL="postgresql://CruddurR:Cruddur1!!xperience@cruddur-db-instance.ctkraqsqzpz8.us-west-2.rds.amazonaws.com:5432/cruddur"
 
+aws lambda create-function \
+    --function-name cruddur-post-confirmation \
+    --region us-west-2  \
+    --zip-file fileb://cruddur-post-confirmation.zip \
+    --handler lambda_handler \
+    --description cruddur \
+    --runtime python3.8 \
+    --role arn:aws:iam::051107296320:role/lambda-ex \
+    --environment "Variables={PG_HOSTNAME=cruddur-db-instance.ctkraqsqzpz8.us-west-2.rds.amazonaws.com,PG_DATABASE=cruddur-db-instance,PG_USERNAME=CruddurR,PG_PASSWORD=Cruddur1234567890}"
+    
+
+
+export PG_HOSTNAME='cruddur-db-instance.ctkraqsqzpz8.us-west-2.rds.amazonaws.com'
+export PG_DATABASE='cruddur-db-instance'
+export PG_USERNAME='CruddurR'
+export PG_PASSWORD='Cruddur1234567890'
+
+gp env PG_HOSTNAME='cruddur-db-instance.ctkraqsqzpz8.us-west-2.rds.amazonaws.com'
+gp env PG_DATABASE='cruddur-db-instance'
+gp env PG_USERNAME='CruddurR'
+gp env PG_PASSWORD='Cruddur1234567890'
+
+zip cruddur-post-confirmation.zip cruddur-post-confirmation.py

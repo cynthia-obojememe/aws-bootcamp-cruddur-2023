@@ -206,10 +206,30 @@ lambda fucntion
 ```
 import json
 import psycopg2
+import os
 
 def lambda_handler(event, context):
     user = event['request']['userAttributes']
+
+    user_display_name  = user['name']
+    user_email         = user['email']
+    user_handle        = user['preferred_username']
+    user_cognito_id    = user['sub']
     try:
+        sql = f"""
+            INSECT INTO public.users (
+                display_name,
+                email,
+                handle,
+                cognito_user_id
+                )
+            VALUES(
+                '{user_display_name}',
+                '{user_email}',
+                '{user_handle}',
+                '{user_cognito_id}'
+            )
+            """
         conn = psycopg2.connect(
             host=(os.getenv('PG_HOSTNAME')),
             database=(os.getenv('PG_DATABASE')),
@@ -217,7 +237,7 @@ def lambda_handler(event, context):
             password=(os.getenv('PG_SECRET'))
         )
         cur = conn.cursor()
-        cur.execute("INSERT INTO users (display_name, handle, cognito_user_id) VALUES(%s, %s, %s)", (user['name'], user['email'], user['sub']))
+        cur.execute(sql)
         conn.commit() 
 
     except (Exception, psycopg2.DatabaseError) as error:
@@ -228,12 +248,47 @@ def lambda_handler(event, context):
             cur.close()
             conn.close()
             print('Database connection closed.')
-
     return event
     ```
     
+## SETTING LAMBDA FUNCTION VIA THE CLI
+ i could not set lambda via the aws console due to the issue i experience below. I was able to find a walk around using the aws cli example from ![](https://www.cockroachlabs.com/blog/aws-lambda-function-python-cockroachdb-serverless/) 
 
+ ```
+ aws lambda create-function \
+    --function-name cruddur-post-confirmation \
+    --region us-west-2  \
+    --zip-file fileb://cruddur-post-confirmation.zip \
+    --handler lambda_handler \
+    --description cruddur \
+    --runtime python3.8 \
+    --role arn:aws:iam::051107296320:role/lambda-ex \
+    --environment "Variables={PG_HOSTNAME=database url.rds.amazonaws.com,PG_DATABASE=database name ,PG_USERNAME=username,PG_PASSWORD=password}"
+    
+ ```
 
+ Development
+https://github.com/AbhimanyuHK/aws-psycopg2
 
+This is a custom compiled psycopg2 C library for Python. Due to AWS Lambda missing the required PostgreSQL libraries in the AMI image, we needed to compile psycopg2 with the PostgreSQL libpq.so library statically linked libpq library instead of the default dynamic link.
 
-```
+EASIEST METHOD
+
+Some precompiled versions of this layer are available publicly on AWS freely to add to your function by ARN reference.
+
+https://github.com/jetbridge/psycopg2-lambda-layer
+
+Just go to Layers + in the function console and add a reference for your region
+arn:aws:lambda:ca-central-1:898466741470:layer:psycopg2-py38:1
+
+Alternatively you can create your own development layer by downloading the psycopg2-binary source files from https://pypi.org/project/psycopg2-binary/#files
+
+Download the package for the lambda runtime environment: psycopg2_binary-2.9.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+
+Extract to a folder, then zip up that folder and upload as a new lambda layer to your AWS account
+
+Production
+Follow the instructions on https://github.com/AbhimanyuHK/aws-psycopg2 to compile your own layer from postgres source libraries for the desired version.
+
+Add the function to Cognito
+Under the user pool properties add the function as a Post Confirmation lambda trigger.
