@@ -194,3 +194,46 @@ aws ec2 modify-security-group-rules \
     --group-id $DB_SG_ID \
     --security-group-rules "SecurityGroupRuleId=$DB_SG_RULE_ID,SecurityGroupRule={IpProtocol=tcp,FromPort=5432,ToPort=5432,CidrIpv4=$GITPOD_IP/32}"
 ```
+
+#### AWS Lambda 
+
+Create a Lambda Post confirmation post by adding the code below. Created a Lambda Function by using psycopg3 lib. https://pypi.org/project/psycopg2-binary/#files
+
+
+
+lambda fucntion
+
+```
+import json
+import psycopg2
+
+def lambda_handler(event, context):
+    user = event['request']['userAttributes']
+    try:
+        conn = psycopg2.connect(
+            host=(os.getenv('PG_HOSTNAME')),
+            database=(os.getenv('PG_DATABASE')),
+            user=(os.getenv('PG_USERNAME')),
+            password=(os.getenv('PG_SECRET'))
+        )
+        cur = conn.cursor()
+        cur.execute("INSERT INTO users (display_name, handle, cognito_user_id) VALUES(%s, %s, %s)", (user['name'], user['email'], user['sub']))
+        conn.commit() 
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        
+    finally:
+        if conn is not None:
+            cur.close()
+            conn.close()
+            print('Database connection closed.')
+
+    return event
+    ```
+    
+
+
+
+
+```
