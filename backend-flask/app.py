@@ -40,28 +40,28 @@ LOGGER.addHandler(cw_handler)
 LOGGER.info("Test log")
 
 
-# # xray ----------------
-from aws_xray_sdk.core import xray_recorder
-from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
+# # # xray ----------------
+# from aws_xray_sdk.core import xray_recorder
+# from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
 
 # rollbar
 
-import rollbar
-import rollbar.contrib.flask
-from flask import got_request_exception
+# import rollbar
+# import rollbar.contrib.flask
+# from flask import got_request_exception
 
 # Honeycomb ----
 
 # Initialize tracing and an exporter that can send data to Honeycomb
-provider = TracerProvider()
-processor = BatchSpanProcessor(OTLPSpanExporter())
-provider.add_span_processor(processor)
-trace.set_tracer_provider(provider)
-tracer = trace.get_tracer(__name__)
+# provider = TracerProvider()
+# processor = BatchSpanProcessor(OTLPSpanExporter())
+# provider.add_span_processor(processor)
+# trace.set_tracer_provider(provider)
+# tracer = trace.get_tracer(__name__)
 
 #xray ----
-xray_url = os.getenv("AWS_XRAY_URL")
-xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
+# xray_url = os.getenv("AWS_XRAY_URL")
+# xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
 
 
 app = Flask(__name__)
@@ -168,17 +168,19 @@ def data_home():
         app.logger.debug("authenticated")
         app.logger.debug(claims)
         app.logger.debug(claims['username'])
-        data = HomeActivities.run(cognito_user_id=claims['username'], logger=LOGGER)
+        data = HomeActivities.run(cognito_user_id=claims['username'])
+        # data = HomeActivities.run(cognito_user_id=claims['username'], logger=LOGGER)
     except TokenVerifyError as e:
         # unauthenticated request
         app.logger.debug(e)
         app.logger.debug("unauthenticated")
-        data = HomeActivities.run(logger=LOGGER)
+        data = HomeActivities.run()
+        # data = HomeActivities.run(logger=LOGGER)
     return data, 200
 
 
 @app.route("/api/activities/notifications", methods=['GET'])
-@xray_recorder.capture('notifications_activitiess')
+# @xray_recorder.capture('notifications_activitiess')
 def data_notifications():
   data = NotificationsActivities.run()
   return data, 200

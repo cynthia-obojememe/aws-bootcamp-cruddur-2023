@@ -259,7 +259,7 @@ def lambda_handler(event, context):
     --function-name cruddur-post-confirmation \
     --region us-west-2  \
     --zip-file fileb://cruddur-post-confirmation.zip \
-    --handler lambda_handler \
+    --handler cruddur-post-confirmation.lambda_handler \
     --description cruddur \
     --runtime python3.8 \
     --role arn:aws:iam::051107296320:role/lambda-ex \
