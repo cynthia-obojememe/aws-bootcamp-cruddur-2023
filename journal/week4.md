@@ -165,8 +165,8 @@ fi
 
 psql $URL cruddur < $seed_path
 ```
-Create Postgress drivers (add to requirement.txt)
-
+#### Create Postgress drivers (add to requirement.txt)
+** **
 ```
 psycopg[binary]
 psycopg[pool]
@@ -196,12 +196,13 @@ aws ec2 modify-security-group-rules \
 ```
 
 #### AWS Lambda 
+** **
 
 Create a Lambda Post confirmation post by adding the code below. Created a Lambda Function by using psycopg3 lib. https://pypi.org/project/psycopg2-binary/#files
 
 
 
-lambda fucntion
+lambda function
 
 ```
 import json
@@ -252,9 +253,9 @@ def lambda_handler(event, context):
     ```
     
 ## SETTING LAMBDA FUNCTION VIA THE CLI
- i could not set lambda via the aws console due to the issue i experience below. I was able to find a walk around using the aws cli example from ![](https://www.cockroachlabs.com/blog/aws-lambda-function-python-cockroachdb-serverless/) 
+ ** I could not set lambda via the aws console due to the issue i experienced below. I found a walk around using the aws cli example from![](https://www.cockroachlabs.com/blog/aws-lambda-function-python-cockroachdb-serverless/) 
 
- ```
+```
  aws lambda create-function \
     --function-name cruddur-post-confirmation \
     --region us-west-2  \
@@ -264,31 +265,47 @@ def lambda_handler(event, context):
     --runtime python3.8 \
     --role arn:aws:iam::051107296320:role/lambda-ex \
     --environment "Variables={PG_HOSTNAME=database url.rds.amazonaws.com,PG_DATABASE=database name ,PG_USERNAME=username,PG_PASSWORD=password}"
-    
- ```
+```
+``` 
 
- Development
+##### Lambda Setup
+![Lambda](https://github.com/cynthia-obojememe/aws-bootcamp-cruddur-2023/blob/main/journal/assest/lambda%20config.png)
+
+```
+
+** **
 https://github.com/AbhimanyuHK/aws-psycopg2
 
 This is a custom compiled psycopg2 C library for Python. Due to AWS Lambda missing the required PostgreSQL libraries in the AMI image, we needed to compile psycopg2 with the PostgreSQL libpq.so library statically linked libpq library instead of the default dynamic link.
 
 EASIEST METHOD
 
-Some precompiled versions of this layer are available publicly on AWS freely to add to your function by ARN reference.
+Some precompiled versions of this layer are available publicly on AWS to add to your function by ARN reference.
 
 https://github.com/jetbridge/psycopg2-lambda-layer
 
 Just go to Layers + in the function console and add a reference for your region
 arn:aws:lambda:ca-central-1:898466741470:layer:psycopg2-py38:1
 
-Alternatively you can create your own development layer by downloading the psycopg2-binary source files from https://pypi.org/project/psycopg2-binary/#files
+Alternatively, you can create your own development layer by downloading the psycopg2-binary source files from https://pypi.org/project/psycopg2-binary/#files
 
 Download the package for the lambda runtime environment: psycopg2_binary-2.9.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 
 Extract to a folder, then zip up that folder and upload as a new lambda layer to your AWS account
 
+
+```
 Production
-Follow the instructions on https://github.com/AbhimanyuHK/aws-psycopg2 to compile your own layer from postgres source libraries for the desired version.
+Follow the instructions on https://github.com/AbhimanyuHK/aws-psycopg2 to compile your own layer from Postgres source libraries for the desired version.
 
 Add the function to Cognito
 Under the user pool properties add the function as a Post Confirmation lambda trigger.
+
+** ** 
+![confirmation](https://github.com/cynthia-obojememe/aws-bootcamp-cruddur-2023/blob/main/journal/assest/sign%20up%20after%20confirmation.png)
+
+- ** Setup the home activities sql pool and connect to the production database
+![Lambda](https://github.com/cynthia-obojememe/aws-bootcamp-cruddur-2023/blob/main/journal/assest/lambda%20seed%20confirmation.png)
+
+** ** 
+![Lambda](https://github.com/cynthia-obojememe/aws-bootcamp-cruddur-2023/blob/main/journal/assest/homeactivities%20sql.png)
