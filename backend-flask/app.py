@@ -18,12 +18,12 @@ from lib.cognito_jwt_token import CognitoJwtToken, extract_access_token, TokenVe
 # cognito
 
 # Honeycomb ----
-# from opentelemetry import trace
-# from opentelemetry.instrumentation.flask import FlaskInstrumentor
-# from opentelemetry.instrumentation.requests import RequestsInstrumentor
-# from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
-# from opentelemetry.sdk.trace import TracerProvider
-# from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry import trace
+from opentelemetry.instrumentation.flask import FlaskInstrumentor
+from opentelemetry.instrumentation.requests import RequestsInstrumentor
+from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
 # Cloudwatch tower
 import watchtower
@@ -93,27 +93,27 @@ cors = CORS(
   methods="OPTIONS,GET,HEAD,POST"
 )
 
-# rollbar----
-rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
-# @app._got_first_request
-with app.app_context():
-  rollbar.init(
-      # access token
-      rollbar_access_token,
-      # environment name
-      'production',
-      # server root directory, makes tracebacks prettier
-      root=os.path.dirname(os.path.realpath(__file__)),
-      # flask already sets up logging
-      allow_logging_basic_config=False)
-  # send exceptions from `app` to rollbar, using flask's signal system.
-  got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
+# # rollbar----
+# rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
+# # @app._got_first_request
+# with app.app_context():
+#   rollbar.init(
+#       # access token
+#       rollbar_access_token,
+#       # environment name
+#       'production',
+#       # server root directory, makes tracebacks prettier
+#       root=os.path.dirname(os.path.realpath(__file__)),
+#       # flask already sets up logging
+#       allow_logging_basic_config=False)
+#   # send exceptions from `app` to rollbar, using flask's signal system.
+#   got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
 
 # rollbar---
-@app.route('/rollbar/test')
-def rollbar_test():
-    rollbar.report_message('Hello World!', 'warning')
-    return "Hello World!"
+# @app.route('/rollbar/test')
+# def rollbar_test():
+#     rollbar.report_message('Hello World!', 'warning')
+#     return "Hello World!"
 
  #cloudwatch logs 
 @app.after_request
