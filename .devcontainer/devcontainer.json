@@ -1,17 +1,15 @@
+
+
 {
 	"name": "Cruddur setup",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
 		"ghcr.io/devcontainers/features/aws-cli:1": {},
 		"ghcr.io/devcontainers-contrib/features/npm-package:1": {}
 	},
 	"remoteEnv": {
 		"AWS_CLI_AUTO_PROMPT": "on-partial"
-		
 	},
-	
-		
 	"customizations": {
 		"vscode": {
 			"extensions": [
@@ -22,8 +20,12 @@
 			]
 		}
 	}
-
-	
+},
+{
+	"name": "postgres",
+	"image": "mcr.microsoft.com/vscode/devcontainers/universal:1",
+	"postCreateCommand": ".devcontainer/post-create-command.sh"
+}
 	//"features": {
 		//" "ghcr.io/devcontainers-contrib/features/npm-package:1": {}
 
@@ -48,4 +50,4 @@
 
 	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "devcontainer"
-}
+
