@@ -18,12 +18,12 @@ from lib.cognito_jwt_token import CognitoJwtToken, extract_access_token, TokenVe
 # cognito
 
 # Honeycomb ----
-from opentelemetry import trace
-from opentelemetry.instrumentation.flask import FlaskInstrumentor
-from opentelemetry.instrumentation.requests import RequestsInstrumentor
-from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
-from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.export import BatchSpanProcessor
+# from opentelemetry import trace
+# from opentelemetry.instrumentation.flask import FlaskInstrumentor
+# from opentelemetry.instrumentation.requests import RequestsInstrumentor
+# from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+# from opentelemetry.sdk.trace import TracerProvider
+# from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
 # Cloudwatch tower
 import watchtower
@@ -75,7 +75,7 @@ cognito_jwt_token = CognitoJwtToken(
 
 
 # xray ---
-XRayMiddleware(app, xray_recorder)
+# XRayMiddleware(app, xray_recorder)
 
 # Initialize automatic instrumentation with Flask
 FlaskInstrumentor().instrument_app(app)

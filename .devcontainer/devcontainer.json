@@ -19,8 +19,6 @@
 		}
 	},
 
-
-	
 	"postCreateCommand": ".devcontainer/post-create-command.sh"
 
 	//"features": {
