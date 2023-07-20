@@ -1,5 +1,3 @@
-
-
 {
 	"name": "Cruddur setup",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
@@ -19,37 +17,28 @@
 				"ms-ossdata.vscode-postgresql"
 			]
 		}
-	}
+	},
 
-},
 
-{
-	"name": "postgres",
-	"image": "mcr.microsoft.com/vscode/devcontainers/universal:1",
+	
 	"postCreateCommand": ".devcontainer/post-create-command.sh"
-}
+
 	//"features": {
 		//" "ghcr.io/devcontainers-contrib/features/npm-package:1": {}
-
-
-
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-
-	// Uncomment the next line if you want start specific services in your Docker Compose config.
-	// "runServices": [],
-
-	// Uncomment the next line if you want to keep your containers running after VS Code shuts down.
-	// "shutdownAction": "none",
-
-	// Uncomment the next line to run commands after the container is created.
-	// "postCreateCommand": "cat /etc/os-release",    
-	// "postCreateCommand": "apt-get update && apt-get install -y postgresql postgresql-contrib",
-    // "postCreateMessage": "PostgreSQL installed. Run 'sudo service postgresql start' to start the PostgreSQL service.",
-
-	// Configure tool-specific properties.
-	// "customizations": {},
+ 
+   // Use 'forwardPorts' to make a list of ports inside the container available locally.
+   // "forwardPorts": [],
+   // Uncomment the next line if you want start specific services in your Docker Compose config.
+   // "runServices": [],
+   // Uncomment the next line if you want to keep your containers running after VS Code shuts down.
+   // "shutdownAction": "none",
+   // Uncomment the next line to run commands after the container is created.
+   // "postCreateCommand": "cat /etc/os-release",    
+   // "postCreateCommand": "apt-get update && apt-get install -y postgresql postgresql-contrib",
+   // "postCreateMessage": "PostgreSQL installed. Run 'sudo service postgresql start' to start the PostgreSQL service.",
+   // Configure tool-specific properties.
+   // "customizations": {},
 
 	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "devcontainer"
-
+}
