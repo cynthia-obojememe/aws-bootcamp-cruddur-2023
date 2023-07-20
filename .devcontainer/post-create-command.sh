@@ -11,4 +11,4 @@ sudo apt-get install -y apt-utils
 export GITPOD_IP=$(curl ifconfig.me)
 
 # Run your desired command
-source "$THEIA_WORKSPACE_ROOT/backend-flask/bin/db-update-sg-rule"
+source "/workspaces/aws-bootcamp-cruddur-2023/backend-flask/bin/db-update-sg-rule"

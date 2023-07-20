@@ -20,7 +20,9 @@
 			]
 		}
 	}
+
 },
+
 {
 	"name": "postgres",
 	"image": "mcr.microsoft.com/vscode/devcontainers/universal:1",
