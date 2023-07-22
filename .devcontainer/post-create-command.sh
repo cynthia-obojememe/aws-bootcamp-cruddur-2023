@@ -16,6 +16,12 @@ cd ..
 cd "./aws-bootcamp-cruddur-2023/frontend-react-js"
 sudo npm install -y 
 
+#RUN flask pip install -r requirment.txt
+cd .. 
+cd backend-flask
+pip install -r requirements.txt
+
+
 
 
 
