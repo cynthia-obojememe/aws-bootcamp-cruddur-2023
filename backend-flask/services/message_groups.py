@@ -22,4 +22,4 @@ class MessageGroups:
     print("list_message_groups:",data)
 
     model['data'] = data
-    return model
+    return 

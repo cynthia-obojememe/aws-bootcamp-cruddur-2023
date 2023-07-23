@@ -7,8 +7,7 @@ import DesktopSidebar     from '../components/DesktopSidebar';
 import ActivityFeed from '../components/ActivityFeed';
 import ActivityForm from '../components/ActivityForm';
 
-// [TODO] Authenication
-import Cookies from 'js-cookie'
+
 
 export default function UserFeedPage() {
   const [activities, setActivities] = React.useState([]);
