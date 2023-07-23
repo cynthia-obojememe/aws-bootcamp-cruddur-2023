@@ -143,8 +143,7 @@ def data_message_groups():
 
 
 
-
-@@app.route("/api/messages/<string:message_group_uuid>", methods=['GET'])
+@app.route("/api/messages/<string:message_group_uuid>", methods=['GET'])
 def data_messages(message_group_uuid):
   access_token = extract_access_token(request.headers)
   try:
@@ -184,22 +183,22 @@ def data_create_message():
 @app.route("/api/activities/home", methods=['GET'])
 @xray_recorder.capture('activities_home')
 def data_home():
-    access_token = extract_access_token(request.headers)
-    try:
-        claims = cognito_jwt_token.verify(access_token)
-        # authenticated request
-        app.logger.debug("authenticated")
-        app.logger.debug(claims)
-        app.logger.debug(claims['username'])
-        data = HomeActivities.run(cognito_user_id=claims['username'])
-        # data = HomeActivities.run(cognito_user_id=claims['username'], logger=LOGGER)
-    except TokenVerifyError as e:
-        # unauthenticated request
-        app.logger.debug(e)
-        app.logger.debug("unauthenticated")
-        data = HomeActivities.run()
-        # data = HomeActivities.run(logger=LOGGER)
-    return data, 200
+  access_token = extract_access_token(request.headers)
+  try:
+      claims = cognito_jwt_token.verify(access_token)
+      # authenticated request
+      app.logger.debug("authenticated")
+      app.logger.debug(claims)
+      app.logger.debug(claims['username'])
+      data = HomeActivities.run(cognito_user_id=claims['username'])
+      # data = HomeActivities.run(cognito_user_id=claims['username'], logger=LOGGER)
+  except TokenVerifyError as e:
+      # unauthenticated request
+      app.logger.debug(e)
+      app.logger.debug("unauthenticated")
+      data = HomeActivities.run()
+      # data = HomeActivities.run(logger=LOGGER)
+  return data, 200
 
 
 @app.route("/api/activities/notifications", methods=['GET'])
